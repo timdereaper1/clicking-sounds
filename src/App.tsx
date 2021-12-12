@@ -20,6 +20,7 @@ const winningSound = weirdSounds[1];
 function App() {
 	const [elapsedTime, setElapsedTime] = useState(0);
 	const [playingState, setPlayState] = useState('paused');
+	const [totalScore, setTotalScore] = useState(0);
 
 	useEffect(() => {
 		let timeout: NodeJS.Timeout;
@@ -42,7 +43,9 @@ function App() {
 		if (playingState !== 'paused') return;
 		const audio = new Audio(sound);
 		audio.play();
-		setPlayState(sound === winningSound ? 'won' : 'lost');
+		const hasWonGame = sound === winningSound;
+		setPlayState(hasWonGame ? 'won' : 'lost');
+		if (hasWonGame) setTotalScore(totalScore + 1);
 		setElapsedTime(0);
 	}
 
@@ -60,7 +63,8 @@ function App() {
 					key={sound}
 				/>
 			))}
-			<p>{elapsedTime}</p>
+			<p>Time remaining {30 - elapsedTime}s</p>
+			<p>Your total score {totalScore}</p>
 			{playingState === 'won' && (
 				<div>
 					You won a very big prize
