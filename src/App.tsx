@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import './App.css';
+import { useEffect, useState } from 'react';
 import SoundButton from './SoundButton';
 
 const weirdSounds: string[] = [
@@ -16,42 +15,70 @@ function shuffleList(sounds: string[]): string[] {
 	return [sounds[randomIndex], ...shuffleList(sounds.filter((_, i) => i !== randomIndex))];
 }
 
+const winningSound = weirdSounds[1];
+
 function App() {
-	const [isClicked, setClicked] = useState(false);
-	const [hasWon, setWon] = useState(false);
-	const winningSound = weirdSounds[1];
+	const [elapsedTime, setElapsedTime] = useState(0);
+	const [playingState, setPlayState] = useState('paused');
+
+	useEffect(() => {
+		let timeout: NodeJS.Timeout;
+		function incrementElapseTime() {
+			timeout = setTimeout(() => {
+				setElapsedTime((elapsedTime) => elapsedTime + 1);
+				incrementElapseTime();
+			}, 1000);
+			if (playingState !== 'paused') clearTimeout(timeout);
+		}
+		incrementElapseTime();
+		return () => clearTimeout(timeout);
+	}, [playingState]);
+
+	useEffect(() => {
+		if (elapsedTime >= 30) setPlayState('timeout');
+	}, [elapsedTime]);
 
 	function playSound(sound: string) {
-		if (isClicked) return;
-		setWon(sound === winningSound);
+		if (playingState !== 'paused') return;
 		const audio = new Audio(sound);
 		audio.play();
-		setClicked(true);
+		setPlayState(sound === winningSound ? 'won' : 'lost');
+		setElapsedTime(0);
 	}
 
 	function tryGameAgain() {
-		setClicked(false);
-		setWon(false);
+		setPlayState('paused');
+		setElapsedTime(0);
 	}
 
 	return (
 		<div className="App">
 			{shuffleList(weirdSounds).map((sound) => (
-				<SoundButton disabled={isClicked} onClick={() => playSound(sound)} key={sound} />
+				<SoundButton
+					disabled={playingState !== 'paused'}
+					onClick={() => playSound(sound)}
+					key={sound}
+				/>
 			))}
-			{isClicked ? (
-				hasWon ? (
-					<div>
-						You won a very big prize
-						<button onClick={tryGameAgain}>Play again</button>
-					</div>
-				) : (
-					<div>
-						You won nothing sorry, try again
-						<button onClick={tryGameAgain}>Try again</button>
-					</div>
-				)
-			) : null}
+			<p>{elapsedTime}</p>
+			{playingState === 'won' && (
+				<div>
+					You won a very big prize
+					<button onClick={tryGameAgain}>Play again</button>
+				</div>
+			)}
+			{playingState === 'lost' && (
+				<div>
+					You won nothing sorry, try again
+					<button onClick={tryGameAgain}>Try again</button>
+				</div>
+			)}
+			{playingState === 'timeout' && (
+				<div>
+					Sorry, times up
+					<button onClick={tryGameAgain}>Try again</button>
+				</div>
+			)}
 		</div>
 	);
 }
