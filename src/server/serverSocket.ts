@@ -1,7 +1,8 @@
 import http from 'http';
 import { Server } from 'socket.io';
-import { SOCKET_EVENTS } from '../events';
-import { OnlinePlayer } from '../types';
+import { SOCKET_EVENTS } from '../common/events';
+import { OnlinePlayer } from '../common/types';
+import { Constants } from './constants';
 import { onlinePlayers } from './onlinePlayers';
 
 export default class SocketServer {
@@ -10,7 +11,7 @@ export default class SocketServer {
 	constructor(server: http.Server) {
 		this.io = new Server(server, {
 			cors: {
-				origin: '*',
+				origin: Constants.App.URL,
 			},
 		});
 	}

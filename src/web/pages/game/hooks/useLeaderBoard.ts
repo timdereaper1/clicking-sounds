@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { SOCKET_EVENTS } from '../../../../events';
-import { RegisteredOnlinePlayers } from '../../../../types';
+import { SOCKET_EVENTS } from '../../../../common/events';
+import { RegisteredOnlinePlayers } from '../../../../common/types';
 import { clientSocket } from '../../../services/socket';
 
 export default function useLeaderBoard() {

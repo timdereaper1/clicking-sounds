@@ -4,13 +4,6 @@
 	"private": true,
 	"dependencies": {
 		"@koa/cors": "^3.1.0",
-		"@testing-library/jest-dom": "^5.11.4",
-		"@testing-library/react": "^11.1.0",
-		"@testing-library/user-event": "^12.1.10",
-		"@types/jest": "^26.0.15",
-		"@types/node": "^12.0.0",
-		"@types/react": "^17.0.0",
-		"@types/react-dom": "^17.0.0",
 		"koa": "^2.13.4",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",
@@ -24,10 +17,12 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "react-scripts build && yarn build:server",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"serve": "ts-node-dev --project tsconfig.server.json ./src/server/main.ts"
+		"dev": "ts-node-dev --project tsconfig.server.json ./src/server/main.ts",
+		"serve": "node ./build/server/main.js",
+		"build:server": "tsc -p ./tsconfig.server.json "
 	},
 	"eslintConfig": {
 		"extends": [
@@ -48,8 +43,15 @@
 		]
 	},
 	"devDependencies": {
+		"@testing-library/jest-dom": "^5.11.4",
+		"@testing-library/react": "^11.1.0",
+		"@testing-library/user-event": "^12.1.10",
+		"@types/jest": "^26.0.15",
 		"@types/koa": "^2.13.4",
 		"@types/koa__cors": "^3.1.0",
+		"@types/node": "^12.0.0",
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
 		"ts-node": "^10.4.0",
 		"ts-node-dev": "^1.1.8"
 	}

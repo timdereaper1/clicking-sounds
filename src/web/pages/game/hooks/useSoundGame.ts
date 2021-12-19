@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { SOCKET_EVENTS } from '../../../../events';
+import { SOCKET_EVENTS } from '../../../../common/events';
 import { clientSocket } from '../../../services/socket';
 import { winningSound } from '../services/sounds';
 

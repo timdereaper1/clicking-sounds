@@ -3,7 +3,8 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"noEmit": false,
-		"target": "esnext"
+		"target": "esnext",
+		"outDir": "./build"
 	},
 	"include": ["src/server"]
 }

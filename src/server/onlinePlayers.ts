@@ -1,3 +1,3 @@
-import { RegisteredOnlinePlayers } from '../types';
+import { RegisteredOnlinePlayers } from '../common/types';
 
 export const onlinePlayers: RegisteredOnlinePlayers = {};
