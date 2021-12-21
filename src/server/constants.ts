@@ -5,7 +5,7 @@ export const Constants = {
 	App: {
 		URL:
 			process.env.NODE_ENV === 'production'
-				? 'https://clicking-sounds.netlify.com'
+				? 'https://clicking-sounds.netlify.app'
 				: 'http://localhost:3000',
 	},
 };
