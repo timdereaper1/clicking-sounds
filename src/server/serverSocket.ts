@@ -12,6 +12,7 @@ export default class SocketServer {
 		this.io = new Server(server, {
 			cors: {
 				origin: Constants.App.URL,
+				methods: ['GET', 'POST'],
 			},
 		});
 	}
