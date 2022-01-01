@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Game from '../../../../../src/web/pages/game/ui/Game';
+import Game from '../../../../../src/web/modules/game/ui/Game';
 
 test('renders learn react link', () => {
 	render(<Game />);
