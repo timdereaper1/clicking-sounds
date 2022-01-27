@@ -14,9 +14,9 @@
 		"web-vitals": "^1.0.1"
 	},
 	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build && yarn build:server",
-		"test": "react-scripts test",
+		"start": "next dev",
+		"build": "next build && yarn build:server",
+		"test": "jest",
 		"dev": "ts-node-dev --project tsconfig.server.json ./src/server/main.ts",
 		"serve": "node ./build/server/main.js",
 		"build:server": "tsc -p ./tsconfig.server.json "

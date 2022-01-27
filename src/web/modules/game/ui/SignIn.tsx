@@ -9,6 +9,7 @@ export default function SignIn({ onSubmit }: SignInProps) {
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
+		if (!username) return;
 		onSubmit(username);
 		setUsername('');
 	}
@@ -23,6 +24,7 @@ export default function SignIn({ onSubmit }: SignInProps) {
 				Username
 				<input
 					type="text"
+					required
 					onChange={handleChange}
 					value={username}
 					name="username"
@@ -30,6 +32,9 @@ export default function SignIn({ onSubmit }: SignInProps) {
 					placeholder="Enter your username"
 				/>
 			</label>
+			<button disabled={!!!username} type="submit">
+				Submit
+			</button>
 		</form>
 	);
 }
