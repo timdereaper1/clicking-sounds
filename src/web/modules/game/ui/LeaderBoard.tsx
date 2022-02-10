@@ -4,9 +4,10 @@ export default function LeaderBoard() {
 	const players = useLeaderBoard();
 	return players ? (
 		<ul>
-			{Object.keys(players).map((username) => (
-				<li key={username}>
-					<strong>{username}: </strong> {players[username].score}
+			{Object.keys(players).map((userId) => (
+				<li key={userId}>
+					<strong>{players[userId].username}: </strong>
+					<span data-testid="score">{players[userId].score}</span>
 				</li>
 			))}
 		</ul>
